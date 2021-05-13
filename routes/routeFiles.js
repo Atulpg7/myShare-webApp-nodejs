@@ -7,7 +7,7 @@ const sendMail = require('../services/emailService');
 
 //Creating object for storing the file in folder
 let storage = multer.diskStorage({
-    destination: (req,file,cb)=>cb(null,'../uploads/'), // Setting the destination folder
+    destination: (req,file,cb)=>cb(null,'./uploads/'), // Setting the destination folder
     filename:(req,file,cb)=>{
         const uniqueName = `${Date.now()}-${Math.round(Math.random()*1E9)}${path.extname(file.originalname)}`;
         cb(null,uniqueName); // Creating a unique file name and setting it
@@ -53,7 +53,7 @@ router.post('/',(req,res)=>{
                     })
                 });
         }catch(err){
-            return res.send({statusCode:400, status:"not_success", message:err})
+            return res.send({statusCode:400, status:"not_success",message:err})
         }
 });
 
