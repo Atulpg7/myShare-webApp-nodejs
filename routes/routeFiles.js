@@ -43,7 +43,7 @@ router.post('/',(req,res)=>{
                         size:req.file.size
                     });
 
-                    //Respose download link
+                    //Response download link
                     const response = await file.save();
                     return res.send( {
                         status:"success",
