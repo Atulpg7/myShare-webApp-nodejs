@@ -8,9 +8,9 @@ function initDBConnection() {
     const connection = mongoose.connection;
 
     connection.once('open',()=>{
-        console.log('Server Connected');
+        console.log('DB Connected');
     }).catch(err=>{
-        console.log('Server Not Connected');
+        console.log('DB Not Connected');
     })
 }
 
