@@ -12,7 +12,7 @@ connectDB();
 
 //This will allow all styles
 //app.use(express.static('public')) // public is folder name
-app.use(express.json()) // Used for telling that json data can also be come from user
+app.use(express.json()) // Used for telling that json data can also be come from frontend
 
 //Routing the urls
 app.use('/api/files',require('./routes/routeFiles'))

@@ -12,6 +12,7 @@ function initDBConnection() {
     }).catch(err=>{
         console.log('DB Not Connected');
     })
+    
 }
 
 module.exports = initDBConnection;
