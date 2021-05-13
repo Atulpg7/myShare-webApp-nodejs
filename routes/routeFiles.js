@@ -43,18 +43,15 @@ router.post('/',(req,res)=>{
             size:req.file.size
         });
 
+        //Respose download link
         const response = await file.save();
-        return res.json( {
+        return res.send( {
             status:"success",
             statusCode:"200",
             message:"file_saved",
             file:`${process.env.APP_BASE_URL}/files/${response.uuid}` // Eg:-> http://localhost:3000/files/snsabhjbadjhbzxradrtwqyeu
         })
     });
-
-
-    //Respose download link
-
 });
 
 router.post('/send', async (req, res)=>{
