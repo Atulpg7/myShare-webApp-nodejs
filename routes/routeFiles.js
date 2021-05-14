@@ -7,7 +7,7 @@ const sendMail = require('../services/emailService');
 
 //Creating object for storing the file in folder
 let storage = multer.diskStorage({
-    destination: (req,file,cb)=>cb(null,'./uploads/'), // Setting the destination folder
+    destination: (req,file,cb)=>cb(null,'uploads/'), // Setting the destination folder
     filename:(req,file,cb)=>{
         const uniqueName = `${Date.now()}-${Math.round(Math.random()*1E9)}${path.extname(file.originalname)}`;
         cb(null,uniqueName); // Creating a unique file name and setting it
@@ -43,13 +43,13 @@ router.post('/',(req,res)=>{
                         size:req.file.size
                     });
 
-                    //Response download link
+                    //Respose download link
                     const response = await file.save();
                     return res.send( {
                         status:"success",
                         statusCode:"200",
                         message:"file_saved",
-                        file:`${process.env.APP_BASE_URL}files/${response.uuid}` // Eg:-> http://localhost:3000/files/snsabhjbadjhbzxradrtwqyeu
+                        file:`${process.env.APP_BASE_URL}/files/${response.uuid}` // Eg:-> http://localhost:3000/files/snsabhjbadjhbzxradrtwqyeu
                     })
                 });
         }catch(err){
@@ -69,9 +69,9 @@ router.post('/send', async (req, res)=>{
     //Get data from database
     const file = await File.findOne({uuid: uuid});
 
-    if(file.sender){
-        return res.status(404).send({statusCode:404, status:"not_success",message:"Email already sent"})
-    }
+    // if(file.sender){
+    //     return res.status(404).send({statusCode:404, status:"not_success",message:"Email already sent"})
+    // }
 
     file.sender = emailFrom;
     file.reciever = emailTo;
@@ -87,7 +87,7 @@ router.post('/send', async (req, res)=>{
         text:`${emailFrom} shared a file with you.`,
         html:require('../services/emailTemplate')({
             emailFrom: emailFrom,
-            downloadLink: `${process.env.APP_BASE_URL}files/download/${file.uuid}`,
+            downloadLink: `${process.env.APP_BASE_URL}/files/download/${file.uuid}`,
             size: parseInt(file.size/1000) + ' KB',
             expires: '24 hours'
         }) // Email template ka jesa dikhega humara email

@@ -21,7 +21,7 @@ router.get('/:uuid', async (req, res)=>{ // : means its dynamic
             uuid: file.uuid,
             filename: file.filename,
             filesize: file.size,
-            downloadlink: `${process.env.APP_BASE_URL}files/download/${file.uuid}` //Eg:- http://localhost:3000/files/download/asdnuhuh127dza
+            downloadlink: `${process.env.APP_BASE_URL}/files/download/${file.uuid}` //Eg:- http://localhost:3000/files/download/asdnuhuh127dza
         })
 
     }catch(err){
