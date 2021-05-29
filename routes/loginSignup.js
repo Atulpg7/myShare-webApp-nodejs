@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const User = require('../models/user');
 
+// /api/user/login
 router.post('/login',async (req,res)=>{
     try{
         const {email, password} = req.body;
-        console.log(req.body)
+
         const user = await User.findOne({email,password});
         if(!user){
             return res.json({"status":"not success","message":"no account exists"});    
@@ -16,6 +17,7 @@ router.post('/login',async (req,res)=>{
     }
 })
 
+// /api.user/signup
 router.post('/signup',async (req,res)=>{
     try{
         const {firstname, lastname, email, password} = req.body;
