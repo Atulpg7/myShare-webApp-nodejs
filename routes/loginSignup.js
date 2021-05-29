@@ -7,10 +7,10 @@ router.get('/login',async (req,res)=>{
         console.log(req.body)
         const user = await User.findOne({email,password});
         if(!user){
-            res.send({"status":"not success","message":"no account exists"});    
+            return res.send({"status":"not success","message":"no account exists"});    
+        }else{
+            return res.send({"status":"success","email":user.email,"message":"login successfull"});
         }
-
-        res.send({"status":"success","email":user.email,"message":"login successfull"});
     }catch(err){
         return res.send({statusCode:400, status:"not_success",message:err})
     }
@@ -22,11 +22,11 @@ router.post('/signup',async (req,res)=>{
 
         const user = await User.findOne({email,password});
         if(user){
-            res.send({"status":"not success","message":"account already exists"});    
+            return res.send({"status":"not success","message":"account already exists"});    
         }else{
             const user = new User({firstname,lastname,email,password});
             const response = await user.save();
-            res.send({"status":"success","email":user.email,"message":"signup successfull"});
+            return res.send({"status":"success","email":user.email,"message":"signup successfull"});
         }
     }catch(err){
         return res.send({statusCode:400, status:"not_success",message:err})
