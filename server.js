@@ -4,8 +4,12 @@ const app = express();
 const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
-const connectDB = require('./config/db');
-connectDB();
+try{
+    const connectDB = require('./config/db');
+    connectDB();
+}catch(err){
+    console.log("Error: ",err);
+}
 
 //Cors 
 const corsOptions = {
@@ -29,6 +33,9 @@ app.use('/files',require('./routes/show'));
 
 //Routing for download the file
 app.use('/files/download',require('./routes/download'));
+
+//Routing for login and signup
+app.use('/api/user',require('./routes/loginSignup'));
 
 app.listen(PORT,()=>{
     console.log(`Server running on ${PORT}`);
