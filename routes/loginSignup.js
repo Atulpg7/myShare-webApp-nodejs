@@ -1,18 +1,18 @@
 const router = require('express').Router();
 const User = require('../models/user');
 
-router.get('/login',async (req,res)=>{
+router.post('/login',async (req,res)=>{
     try{
         const {email, password} = req.body;
         console.log(req.body)
         const user = await User.findOne({email,password});
         if(!user){
-            return res.send({"status":"not success","message":"no account exists"});    
+            return res.json({"status":"not success","message":"no account exists"});    
         }else{
-            return res.send({"status":"success","email":user.email,"message":"login successfull"});
+            return res.json({"status":"success","email":user.email,"message":"login successfull"});
         }
     }catch(err){
-        return res.send({statusCode:400, status:"not_success",message:err})
+        return res.json({statusCode:400, status:"not_success",message:err})
     }
 })
 
