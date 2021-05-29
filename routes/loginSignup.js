@@ -4,7 +4,7 @@ const User = require('../models/user');
 router.get('/login',async (req,res)=>{
     try{
         const {email, password} = req.body;
-
+        console.log(req.body)
         const user = await User.findOne({email,password});
         if(!user){
             res.send({"status":"not success","message":"no account exists"});    
